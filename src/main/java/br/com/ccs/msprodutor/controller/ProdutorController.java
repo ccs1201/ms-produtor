@@ -1,6 +1,7 @@
 package br.com.ccs.msprodutor.controller;
 
 import br.com.ccs.dispatcher.messaging.MessagePublisher;
+import br.com.ccs.dispatcher.messaging.annotation.Command;
 import br.com.ccs.dispatcher.messaging.annotation.MessageHandler;
 import br.com.ccs.dispatcher.messaging.annotation.MessageListener;
 import br.com.ccs.msprodutor.model.input.MessageInput;
@@ -37,7 +38,7 @@ public class ProdutorController {
     }
 
     @PostMapping("consome")
-    @MessageHandler(forClass = MessageInput.class)
+    @Command
     public void consomeMensagem(@RequestBody MessageInput input, HttpServletRequest request) {
         log.info("Método consome | Mensagem consumida: {}", input);
         log.info("Headers: {}", getHeadersToString(request));
