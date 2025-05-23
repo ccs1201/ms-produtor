@@ -1,11 +1,15 @@
 package br.com.ccs.msprodutor.controller;
 
-import br.com.ccs.dispatcher.model.MessageWrapper;
+import br.com.ccs.dispatcher.messaging.MessagePublisher;
+import br.com.ccs.dispatcher.messaging.annotation.MessageHandler;
+import br.com.ccs.dispatcher.messaging.annotation.MessageListener;
 import br.com.ccs.msprodutor.model.input.MessageInput;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.http.HttpMethod;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,34 +19,42 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/")
 @RequiredArgsConstructor
 @Slf4j
+@Validated
+@MessageListener
 public class ProdutorController {
 
-    private final RabbitTemplate rabbitTemplate;
+    private final MessagePublisher publisher;
+    private final ObjectMapper objectMapper;
 
     @PostMapping("publica")
-    public void enviarMensagem(@RequestBody MessageInput input) {
-        var message = MessageWrapper.builder()
-                .path(input.path())
-                .method(HttpMethod.POST)
-                .body(input)
-                .build();
+    public void publica(@RequestBody MessageInput input, HttpServletRequest request) throws JsonProcessingException {
+        log.info("Método publica | Request recebida: {}", input);
+        log.info("Headers: {}", getHeadersToString(request));
 
-        rabbitTemplate.convertAndSend("ms-produtor", message, msg -> {
-            log.info("Dados da mensagem enviada: {}", msg.getMessageProperties());
-            return msg;
-        });
+        publisher.sendEvent(input);
 
         log.info("Mensagem enviada com sucesso");
     }
 
     @PostMapping("consome")
-    public void consomeMensagem(@RequestBody MessageInput input) {
-        log.info("Método consomeMensagem | Mensagem consumida: {}", input);
+    @MessageHandler(forClass = MessageInput.class)
+    public void consomeMensagem(@RequestBody MessageInput input, HttpServletRequest request) {
+        log.info("Método consome | Mensagem consumida: {}", input);
+        log.info("Headers: {}", getHeadersToString(request));
     }
 
     @PostMapping("throwErro")
-    public void throwErro(@RequestBody MessageInput input) {
+    public void throwErro(@RequestBody MessageInput input, HttpServletRequest request) {
         log.info("Método throwErro | Mensagem consumida: {}", input);
         throw new RuntimeException("Erro ao consumir mensagem");
+    }
+
+    private String getHeadersToString(HttpServletRequest request) {
+        StringBuilder headers = new StringBuilder("\n");
+        request.getHeaderNames()
+                .asIterator()
+                .forEachRemaining(headerName ->
+                        headers.append(headerName).append(": ").append(request.getHeader(headerName)).append("\n"));
+        return headers.toString();
     }
 }
