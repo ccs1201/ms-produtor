@@ -1,12 +1,10 @@
-package br.com.ccs.msprodutor.controller;
+package br.com.msprodutor.controller;
 
-import br.com.ccs.dispatcher.messaging.MessagePublisher;
-import br.com.ccs.dispatcher.messaging.annotation.Command;
-import br.com.ccs.dispatcher.messaging.annotation.MessageHandler;
-import br.com.ccs.dispatcher.messaging.annotation.MessageListener;
-import br.com.ccs.msprodutor.model.input.MessageInput;
+import br.com.ccs.messagedispatcher.messaging.annotation.Event;
+import br.com.ccs.messagedispatcher.messaging.annotation.MessageListener;
+import br.com.ccs.messagedispatcher.messaging.publisher.MessagePublisher;
+import br.com.msprodutor.model.input.MessageInput;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,37 +14,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping("/")
 @RequiredArgsConstructor
+@MessageListener
 @Slf4j
 @Validated
-@MessageListener
 public class ProdutorController {
 
     private final MessagePublisher publisher;
-    private final ObjectMapper objectMapper;
 
     @PostMapping("publica")
-    public void publica(@RequestBody MessageInput input, HttpServletRequest request) throws JsonProcessingException {
-        log.info("Método publica | Request recebida: {}", input);
-        log.info("Headers: {}", getHeadersToString(request));
-
-        publisher.sendEvent(input);
-
-        log.info("Mensagem enviada com sucesso");
+    public MessageInput publica(@RequestBody MessageInput input, HttpServletRequest request) throws JsonProcessingException {
+//        log.info("Método publica | Request recebida: {}", input);
+//        log.info("Headers: {}", getHeadersToString(request));
+//
+        var reponse = publisher.doGet(input, MessageInput.class);
+//
+        log.info("Response: {}", reponse);
+        return reponse;
     }
 
-    @PostMapping("consome")
-    @Command
-    public void consomeMensagem(@RequestBody MessageInput input, HttpServletRequest request) {
-        log.info("Método consome | Mensagem consumida: {}", input);
-        log.info("Headers: {}", getHeadersToString(request));
+
+    @Event
+    public void consomeMensagem(MessageInput input) {
+//        log.info("Método consome | Mensagem consumida: {}", input);
     }
 
     @PostMapping("throwErro")
     public void throwErro(@RequestBody MessageInput input, HttpServletRequest request) {
-        log.info("Método throwErro | Mensagem consumida: {}", input);
+//        log.info("Método throwErro | Mensagem consumida: {}", input);
         throw new RuntimeException("Erro ao consumir mensagem");
     }
 

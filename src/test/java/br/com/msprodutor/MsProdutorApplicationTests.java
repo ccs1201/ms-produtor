@@ -1,4 +1,4 @@
-package br.com.ccs.msprodutor;
+package br.com.msprodutor;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

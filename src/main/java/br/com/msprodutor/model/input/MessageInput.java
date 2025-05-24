@@ -1,4 +1,4 @@
-package br.com.ccs.msprodutor.model.input;
+package br.com.msprodutor.model.input;
 
 import java.time.LocalDate;
 
