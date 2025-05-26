@@ -4,7 +4,7 @@ import br.com.ccs.messagedispatcher.messaging.MessageType;
 import br.com.ccs.messagedispatcher.messaging.annotation.*;
 
 @MessageListener
-public class UserMessageHandler {
+public class UserMessageListener {
 
     @Command
     public void handleUserCreated(UserCreatedPayload payload) {
@@ -27,6 +27,11 @@ public class UserMessageHandler {
 
     @Event
     public void handleUserEvent(OrderCreatedPayload payload) {
+        // Processa mensagem de usuário deletado
+    }
+
+    @Command
+    public void handleUserEventt(UserUpdatedPayload payload) {
         // Processa mensagem de usuário deletado
     }
 
