@@ -30,6 +30,11 @@ public class UserMessageListener {
         // Processa mensagem de usuário deletado
     }
 
+//    @Event
+    public void handleUserEventt(OrderCreatedPayload payload) {
+        // Processa mensagem de usuário deletado
+    }
+
     @Command
     public void handleUserEventt(UserUpdatedPayload payload) {
         // Processa mensagem de usuário deletado
