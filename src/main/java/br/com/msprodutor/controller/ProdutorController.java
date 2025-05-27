@@ -4,15 +4,15 @@ import br.com.ccs.messagedispatcher.messaging.MessageAction;
 import br.com.ccs.messagedispatcher.messaging.annotation.Command;
 import br.com.ccs.messagedispatcher.messaging.annotation.MessageListener;
 import br.com.ccs.messagedispatcher.messaging.publisher.MessagePublisher;
-import br.com.msprodutor.model.input.MessageInput;
+import br.com.msprodutor.model.input.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.random.RandomGenerator;
 
 
 @RestController
@@ -25,20 +25,22 @@ public class ProdutorController {
 
     private final MessagePublisher publisher;
 
-    @PostMapping("publica")
-    public MessageInput publica(@RequestBody MessageInput input) throws JsonProcessingException {
-//        log.info("Método publica | Request recebida: {}", input);
-//        log.info("Headers: {}", getHeadersToString(request));
-//
+    @PostMapping("doCommand")
+    public MessageInput doCommandica(@RequestBody MessageInput input) {
         var response = publisher.doCommand(input, input.getClass());
         return response;
     }
 
-    @Command
-    public MessageInput consomeMensagem(MessageInput input) {
-        log.info("Método consome | Mensagem consumida: {}", input);
+    @PostMapping("sendNotification")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void sendNotification(@RequestBody OrderCreatedPayload input) {
+        publisher.sendNotification(new OrderCreatedPayload(RandomGenerator.getDefault().nextInt()));
+    }
 
-        return new MessageInput("Nome alterado no consumidor", input.idade(), input.sexo(), input.dataNascimento(), MessageAction.COMMAND.name());
+    @PostMapping("sendNotificationError")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void sendNotificationError(@RequestBody ExceptionPayload input) {
+        publisher.sendNotification(input);
     }
 
     @PostMapping("throwErro")

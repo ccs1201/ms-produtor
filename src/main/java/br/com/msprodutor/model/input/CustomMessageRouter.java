@@ -1,10 +1,8 @@
-package br.com.msprodutor.poc;
+package br.com.msprodutor.model.input;
 
 import br.com.ccs.messagedispatcher.router.MessageRouter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 

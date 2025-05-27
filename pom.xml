@@ -17,11 +17,11 @@
         <java.version>21</java.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>br.com.ccs</groupId>
-            <artifactId>message-dispatcher-starter</artifactId>
-            <version>0.0.1-ALPHA</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>br.com.ccs</groupId>-->
+<!--            <artifactId>message-dispatcher-starter</artifactId>-->
+<!--            <version>0.0.1-ALPHA</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -48,6 +48,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>br.com.ccs</groupId>
+            <artifactId>message-dispatcher-starter</artifactId>
+            <version>0.0.1-ALPHA</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

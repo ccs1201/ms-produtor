@@ -1,4 +1,4 @@
-package br.com.msprodutor.poc;
+package br.com.msprodutor.model.input;
 
 public record UserUpdatedPayload() {
 }
