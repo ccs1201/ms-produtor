@@ -40,16 +40,15 @@ public class ProdutorController {
     }
 
     @PostMapping("doCommand")
-    public MessageInput doCommandica(@RequestBody MessageInput input) {
+    public MessageInput doCommand(@RequestBody MessageInput input) {
         var response = publisher.doCommand(input, input.getClass());
         return response;
     }
 
     @Command
-    public CreateUserPayload createUser(CreateUserPayload payload) {
+    public MessageInput createUser(MessageInput payload) {
         logMessage(payload);
-        throw new MsProdutorException("é pra falhar aqui | payload: " + payload.toString());
-//        return payload;
+        return payload;
     }
 
     @PostMapping("sendNotification")
