@@ -7,7 +7,7 @@ import br.com.msprodutor.exceptions.MsProdutorException;
 import br.com.msprodutor.model.input.*;
 import lombok.extern.slf4j.Slf4j;
 
-@MessageListener
+//@MessageListener
 @Slf4j
 public class UserMessageListener {
 

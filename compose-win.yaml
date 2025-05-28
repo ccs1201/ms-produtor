@@ -1,0 +1,45 @@
+services:
+  message-dispatcher:
+    image: rabbitmq:3.13.6-management-alpine
+    container_name: message-dispatcher-rabbitmq
+    hostname: rabbitmq
+    restart: "no"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      #        - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbitmq_management load_definitions "/etc/rabbitmq/definitions.json"
+    volumes:
+      - ${HOME}/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ${HOME}/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+      - ./configs/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
+      #        - ./rabbitmq_definitions.json:/etc/rabbitmq/definitions.json:ro
+      #        - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 1G
+
+  postgres:
+    image: postgres:16-alpine3.21
+    restart: no
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=testes
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    network_mode: bridge
+    ports:
+      - "5432:5432"
+    volumes:
+      - ${HOME}/./postgresql.conf:/docker-entrypoint-initdb.d/postgresql.conf
+      - ${HOME}/./init.sql:/docker-entrypoint-initdb.d/01_init.sql
+#    command: 'postgres -c config_file=/docker-entrypoint-initdb.d/postgresql.conf'
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: '1GB'
