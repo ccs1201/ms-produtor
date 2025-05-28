@@ -23,16 +23,6 @@ public class UserMessageListener {
         // Processa mensagem de usuário atualizado
     }
 
-    @Notification
-    public void unsupportedOperationException(ExceptionPayload payload) {
-        logMessage(payload);
-        throw new UnsupportedOperationException("Método unsupportedOperationException não implementado");
-    }
-
-    @Notification
-    public void handleUserDeletedNotification(OrderCreatedPayload payload) {
-        logMessage(payload);
-    }
 
     @Event
     public void handleUserEvent(OrderCreatedPayload payload) {
