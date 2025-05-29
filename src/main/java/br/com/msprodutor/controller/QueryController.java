@@ -45,8 +45,9 @@ public class QueryController {
     }
 
     @Query
-    public void queryErrorHandler(QuerySuccessErrorOutput payload) {
-        throw new RuntimeException("Erro ao processar a query");
+    public void queryErrorHandler(QuerySuccessErrorOutput payload) throws Exception {
+        throw new RuntimeException("Quando exception não for filha de MessageDispatcherRuntimeException," +
+                " deve ocorrer o retry e a resposta ira demorar..." );
     }
 
     private record QuerySuccessErrorOutput() {
