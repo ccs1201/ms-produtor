@@ -5,7 +5,7 @@ import br.com.ccs.messagedispatcher.messaging.annotation.MessageListener;
 import br.com.ccs.messagedispatcher.messaging.publisher.MessagePublisher;
 import br.com.msprodutor.exceptions.MsProdutorException;
 import br.com.msprodutor.model.input.DoCommandError;
-import br.com.msprodutor.model.input.DoCommandSucess;
+import br.com.msprodutor.model.input.DoCommandSuccess;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -26,13 +26,12 @@ public class CommandController {
 
     //ok
     @PostMapping("doCommandSucesso")
-    public DoCommandSucess doCommandSucesso(@RequestBody DoCommandSucess input) {
+    public DoCommandSuccess doCommandSucesso(@RequestBody DoCommandSuccess input) {
         var response = publisher.doCommand(input, input.getClass());
         return response;
     }
     @Command
-    public DoCommandSucess doCommandSucessoCommand(DoCommandSucess payload) {
-//        logMessage(payload);
+    public DoCommandSuccess doCommandSucessoHandler(DoCommandSuccess payload) {
         return payload;
     }
 
@@ -43,8 +42,7 @@ public class CommandController {
     }
 
     @Command
-    public DoCommandError doCommandErrorCommand(DoCommandError payload) {
-//        logMessage(payload);
+    public DoCommandError doCommandErrorHandler(DoCommandError payload) {
         throw new MsProdutorException("Erro no processamento do doCommandError para testes");
     }
 }
