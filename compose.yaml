@@ -1,5 +1,5 @@
 services:
-  ccs-dispatcher:
+  message-dispatcher:
     image: rabbitmq:3.13.6-management-alpine
     container_name: ccs-dispatcher-rabbitmq
     hostname: rabbitmq
