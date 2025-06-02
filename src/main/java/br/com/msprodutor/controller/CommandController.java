@@ -1,9 +1,9 @@
 package br.com.msprodutor.controller;
 
 
-import br.com.ccs.messagedispatcher.messaging.annotation.Command;
-import br.com.ccs.messagedispatcher.messaging.annotation.MessageListener;
-import br.com.ccs.messagedispatcher.messaging.publisher.MessagePublisher;
+import br.com.ccs.messagedispatcher.annotation.Command;
+import br.com.ccs.messagedispatcher.annotation.MessageListener;
+import br.com.ccs.messagedispatcher.publisher.MessagePublisher;
 import br.com.msprodutor.exceptions.MsProdutorException;
 import br.com.msprodutor.model.input.DoCommandError;
 import br.com.msprodutor.model.input.DoCommandSuccess;

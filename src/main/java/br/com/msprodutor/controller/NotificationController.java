@@ -1,9 +1,9 @@
 package br.com.msprodutor.controller;
 
 
-import br.com.ccs.messagedispatcher.messaging.annotation.MessageListener;
-import br.com.ccs.messagedispatcher.messaging.annotation.Notification;
-import br.com.ccs.messagedispatcher.messaging.publisher.MessagePublisher;
+import br.com.ccs.messagedispatcher.annotation.MessageListener;
+import br.com.ccs.messagedispatcher.annotation.Notification;
+import br.com.ccs.messagedispatcher.publisher.MessagePublisher;
 import br.com.msprodutor.model.input.ExceptionPayload;
 import br.com.msprodutor.model.input.OrderCreatedPayload;
 import lombok.RequiredArgsConstructor;
