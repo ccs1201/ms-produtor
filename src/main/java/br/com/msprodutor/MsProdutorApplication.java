@@ -1,5 +1,6 @@
 package br.com.msprodutor;
 
+
 import br.com.ccs.messagedispatcher.messaging.annotation.EnableMessageDispatcher;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

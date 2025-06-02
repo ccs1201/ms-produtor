@@ -1,5 +1,6 @@
 package br.com.msprodutor.controller;
 
+
 import br.com.ccs.messagedispatcher.messaging.annotation.MessageListener;
 import br.com.ccs.messagedispatcher.messaging.annotation.Query;
 import br.com.ccs.messagedispatcher.messaging.publisher.MessagePublisher;
@@ -47,7 +48,7 @@ public class QueryController {
     @Query
     public void queryErrorHandler(QuerySuccessErrorOutput payload) throws Exception {
         throw new RuntimeException("Quando exception não for filha de MessageDispatcherRuntimeException," +
-                " deve ocorrer o retry e a resposta ira demorar..." );
+                " deve ocorrer o retry e a resposta ira demorar...");
     }
 
     private record QuerySuccessErrorOutput() {
