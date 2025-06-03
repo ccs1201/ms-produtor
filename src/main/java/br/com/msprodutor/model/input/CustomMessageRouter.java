@@ -1,6 +1,6 @@
 package br.com.msprodutor.model.input;
 
-import br.com.ccs.messagedispatcher.router.MessageRouter;
+import br.com.messagedispatcher.router.MessageRouter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 

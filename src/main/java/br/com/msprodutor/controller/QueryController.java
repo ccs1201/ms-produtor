@@ -1,9 +1,8 @@
 package br.com.msprodutor.controller;
 
-
-import br.com.ccs.messagedispatcher.annotation.MessageListener;
-import br.com.ccs.messagedispatcher.annotation.Query;
-import br.com.ccs.messagedispatcher.publisher.MessagePublisher;
+import br.com.messagedispatcher.annotation.MessageListener;
+import br.com.messagedispatcher.annotation.Query;
+import br.com.messagedispatcher.publisher.MessagePublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
