@@ -2,7 +2,6 @@
   <configuration default="false" name="MsProdutorApplication" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="br.com.msprodutor.MsProdutorApplication" />
     <module name="ms-produtor" />
-    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=podman" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="br.com.ccs.msprodutor.*" />

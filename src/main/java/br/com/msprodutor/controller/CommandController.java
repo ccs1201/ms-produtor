@@ -27,8 +27,7 @@ public class CommandController {
     //ok
     @PostMapping("doCommandSucesso")
     public DoCommandSuccess doCommandSucesso(@RequestBody DoCommandSuccess input) {
-        var response = publisher.doCommand(input, input.getClass());
-        return response;
+        return publisher.doCommand(input, input.getClass());
     }
     @Command
     public DoCommandSuccess doCommandSucessoHandler(DoCommandSuccess payload) {
@@ -43,6 +42,6 @@ public class CommandController {
 
     @Command
     public DoCommandError doCommandErrorHandler(DoCommandError payload) {
-        throw new MsProdutorException("Erro no processamento do doCommandError para testes");
+        throw new MsProdutorException("doCommandError para testes se falhou Ta certo");
     }
 }
