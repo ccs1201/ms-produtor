@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.random.RandomGenerator;
 
+import static br.com.msprodutor.constants.MsProdutorConstants.MsConsumidor.MS_CONSUMIDOR_RK;
+
 @RestController
 @RequestMapping("/")
 @RequiredArgsConstructor
@@ -28,8 +30,7 @@ public class QueryController {
     @GetMapping("querySucesso")
     @ResponseStatus(HttpStatus.OK)
     public QuerySuccessResponse querySucesso() {
-        var response = publisher.doQuery(new QuerySuccessOutput(), QuerySuccessResponse.class);
-        return response;
+        return publisher.doQuery(MS_CONSUMIDOR_RK, new QuerySuccessOutput(), QuerySuccessResponse.class);
     }
 
     @Query
@@ -40,8 +41,7 @@ public class QueryController {
     @GetMapping("queryError")
     @ResponseStatus(HttpStatus.OK)
     public QueryErrorResponse queryError() {
-        var response = publisher.doQuery(new QuerySuccessErrorOutput(), QueryErrorResponse.class);
-        return response;
+        return publisher.doQuery(MS_CONSUMIDOR_RK, new QuerySuccessErrorOutput(), QueryErrorResponse.class);
     }
 
     @Query
@@ -50,15 +50,15 @@ public class QueryController {
                 " deve ocorrer o retry e a resposta ira demorar...");
     }
 
-    private record QuerySuccessErrorOutput() {
+    public record QuerySuccessErrorOutput() {
     }
 
-    private record QuerySuccessResponse(int resultado) {
+    public record QuerySuccessResponse(int resultado) {
     }
 
-    private record QuerySuccessOutput() {
+    public record QuerySuccessOutput() {
     }
 
-    private record QueryErrorResponse() {
+    public record QueryErrorResponse() {
     }
 }

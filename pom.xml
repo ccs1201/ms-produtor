@@ -19,10 +19,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>br.com</groupId>
+            <groupId>br.com.messagedispatcher</groupId>
             <artifactId>message-dispatcher-starter</artifactId>
             <version>0.0.1-ALPHA</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
