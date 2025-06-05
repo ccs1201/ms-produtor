@@ -27,8 +27,8 @@ public class AppCMD {
         log.info("Enviando mensagens....");
         return args -> {
 
-            var executor = Executors.newFixedThreadPool(100, Thread.ofVirtual().factory());
-            var qtdMsgs = 100_000;
+            var executor = Executors.newFixedThreadPool(200, Thread.ofVirtual().factory());
+            var qtdMsgs = 500_000;
 
             AtomicInteger counter = new AtomicInteger(0);
             List<CompletableFuture> futures = new ArrayList<>(qtdMsgs);
