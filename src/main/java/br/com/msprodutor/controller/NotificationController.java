@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import static br.com.msprodutor.constants.MsProdutorConstants.MsConsumidor.*;
+
 @RestController
 @RequestMapping("/")
 @RequiredArgsConstructor
@@ -31,13 +33,13 @@ public class NotificationController {
     @Notification
     public void sendNotificationSucesso(@RequestBody SucessoRecord input) {
         log.info("Método sendNotificationSucesso | Mensagem consumida: {}", input);
-        publisher.sendNotification(MsConsumidor.MS_CONSUMIDOR_RK, input);
+        publisher.sendNotification(MS_CONSUMIDOR_QUEUE, input);
     }
 
     @PostMapping("sendNotificationError")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void sendNotificationError(@RequestBody ExceptionRecord input) {
-        publisher.sendNotification(MsConsumidor.MS_CONSUMIDOR_RK, input);
+        publisher.sendNotification(MS_CONSUMIDOR_QUEUE, input);
     }
 
     public record SucessoRecord(@NotNull int id) {

@@ -3,6 +3,7 @@ package br.com.msprodutor.controller;
 import br.com.messagedispatcher.annotation.Command;
 import br.com.messagedispatcher.annotation.MessageListener;
 import br.com.messagedispatcher.publisher.MessagePublisher;
+import br.com.msprodutor.constants.MsProdutorConstants.MsConsumidor;
 import br.com.msprodutor.exceptions.MsProdutorException;
 import br.com.msprodutor.model.input.DoCommandError;
 import br.com.msprodutor.model.input.DoCommandSuccess;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import static br.com.msprodutor.constants.MsProdutorConstants.MsConsumidor.*;
 
 @RestController
 @RequestMapping("/")
@@ -27,8 +30,9 @@ public class CommandController {
     //ok
     @PostMapping("doCommandSucesso")
     public DoCommandSuccess doCommandSucesso(@RequestBody DoCommandSuccess input) {
-        return publisher.doCommand(input, input.getClass());
+        return publisher.doCommand(MS_CONSUMIDOR_QUEUE, input, input.getClass());
     }
+
     @Command
     public DoCommandSuccess doCommandSucessoHandler(DoCommandSuccess payload) {
         return payload;
@@ -37,7 +41,7 @@ public class CommandController {
     @PostMapping("doCommandError")
     public void doCommandError() {
         var input = new DoCommandError();
-        publisher.doCommand(input, input.getClass());
+        publisher.doCommand(MS_CONSUMIDOR_QUEUE, input, input.getClass());
     }
 
     @Command

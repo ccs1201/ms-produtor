@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.random.RandomGenerator;
 
-import static br.com.msprodutor.constants.MsProdutorConstants.MsConsumidor.MS_CONSUMIDOR_RK;
+import static br.com.msprodutor.constants.MsProdutorConstants.MsConsumidor.MS_CONSUMIDOR_QUEUE;
 
 @RestController
 @RequestMapping("/")
@@ -30,7 +30,7 @@ public class QueryController {
     @GetMapping("querySucesso")
     @ResponseStatus(HttpStatus.OK)
     public QuerySuccessResponse querySucesso() {
-        return publisher.doQuery(MS_CONSUMIDOR_RK, new QuerySuccessOutput(), QuerySuccessResponse.class);
+        return publisher.doQuery(MS_CONSUMIDOR_QUEUE, new QuerySuccessOutput(), QuerySuccessResponse.class);
     }
 
     @Query
@@ -41,7 +41,7 @@ public class QueryController {
     @GetMapping("queryError")
     @ResponseStatus(HttpStatus.OK)
     public QueryErrorResponse queryError() {
-        return publisher.doQuery(MS_CONSUMIDOR_RK, new QuerySuccessErrorOutput(), QueryErrorResponse.class);
+        return publisher.doQuery(MS_CONSUMIDOR_QUEUE, new QuerySuccessErrorOutput(), QueryErrorResponse.class);
     }
 
     @Query

@@ -6,6 +6,7 @@ import lombok.experimental.UtilityClass;
 public class MsProdutorConstants {
 
     public static final class MsConsumidor {
-        public static final String MS_CONSUMIDOR_RK = "ms-consumidor";
+        public static final String MS_CONSUMIDOR_QUEUE = "ms-consumidor";
+        public static final String MS_CONSUMIDOR_EVENT_QUEUE = "ms-consumidor.event.inbox";
     }
 }

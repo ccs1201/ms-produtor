@@ -2,6 +2,8 @@ package br.com.msprodutor.controller;
 
 import br.com.messagedispatcher.annotation.MessageListener;
 import br.com.messagedispatcher.publisher.MessagePublisher;
+import br.com.msprodutor.constants.MsProdutorConstants;
+import br.com.msprodutor.constants.MsProdutorConstants.MsConsumidor;
 import br.com.msprodutor.model.input.HandlerNotFoundInput;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import static br.com.msprodutor.constants.MsProdutorConstants.MsConsumidor.*;
 
 
 @RestController
@@ -28,6 +32,6 @@ public class HandlerNotFoundController {
     @PostMapping("handlerNotFound")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void handlerNotFound(@RequestBody HandlerNotFoundInput input) {
-        publisher.doCommand(input, input.getClass());
+        publisher.doCommand(MS_CONSUMIDOR_QUEUE, input, input.getClass());
     }
 }

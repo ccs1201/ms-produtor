@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +27,14 @@ public class AppCMD {
         return args -> {
 
             var executor = Executors.newFixedThreadPool(200, Thread.ofVirtual().factory());
-            var qtdMsgs = 500_000;
+            var qtdMsgs = 1_000;
 
             AtomicInteger counter = new AtomicInteger(0);
             List<CompletableFuture> futures = new ArrayList<>(qtdMsgs);
             for (int i = 0; i < qtdMsgs; i++) {
                 futures.add(CompletableFuture.runAsync(() -> {
                     var n = counter.incrementAndGet();
-                    messagePublisher.sendNotification(MsConsumidor.MS_CONSUMIDOR_RK,
+                    messagePublisher.sendNotification(MsConsumidor.MS_CONSUMIDOR_QUEUE,
                             new NotificationController.SucessoRecord(n));
                     log.info("Mensagem {} enviada.", n);
                 }, executor));
