@@ -1,7 +1,7 @@
 services:
   message-dispatcher:
     image: rabbitmq:3.13.6-management-alpine
-    container_name: ccs-dispatcher-rabbitmq
+    container_name: message-dispatcher-rabbitmq
     hostname: rabbitmq
     restart: "no"
     ports:
