@@ -36,7 +36,7 @@ message:
     reply-timeout: 15000
     returnExceptions: true
     username: guest
-    concurrency: 50-50
+    concurrency: 1-10
 #  message.dispatcher.mapped.headers= x-api-key, x-flowId, x-traceId, x-no-exist
 #  message.dispatcher.prefetch-count=25
 #  message.dispatcher.max-retry-attempts=3
